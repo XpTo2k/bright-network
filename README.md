@@ -1,6 +1,6 @@
 # Bright - A social network
 
-##To run:
+## To run:
 ```
 python -m pip install Django
 pip install sqlalchemy
