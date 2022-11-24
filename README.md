@@ -1,5 +1,5 @@
 # Bright - A social network
-
+A simple social network with following system, comments, posts edit, admin panel(django) and more, see for yourself.
 ## To run:
 ```
 python -m pip install Django
