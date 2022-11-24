@@ -1,0 +1,60 @@
+.cbg-dark {
+    background-color: #655C56;
+}
+
+.ctext-dark {
+    color: #655C56;
+}
+
+.cbtn {
+    border: none;
+}
+
+.cbtn:hover {
+    color: #000000;
+    background-color: #655C56;
+}
+
+.cbtn:active {
+    border: none;
+    color: #000000;
+    background-color: #655C56;
+}
+
+.cbtn:focus {
+    border: none;
+    color: #000000;
+    background-color: #655C56;
+    box-shadow: none;
+}
+
+.cbtn:active:focus {
+    box-shadow: none;
+    color: #000000;
+}
+
+.cbtnl {
+    border: none;
+    color: #655C56;
+}
+
+.page-link {
+    color: #655C56;
+}
+
+.page-link:hover {
+    color: #000000;
+}
+
+.active>.page-link, .page-link.active {
+    background-color: #e6ac00;
+    border-color: #e6ac00;
+}
+
+.page-link:focus {
+    background-color: #e6ac00;
+}
+
+.pagination {
+    --bs-pagination-focus-box-shadow: 0 0 0 0.25rem #e6ac00;
+}

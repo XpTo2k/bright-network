@@ -1,0 +1,10 @@
+{% extends "network/layout.html" %} {% block body %}
+<div class="row justify-content-center my-3 mx-1">
+  <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-6 col-xxl-6">
+    <form action="{% url 'new_idea' %}" method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <input class="btn btn-outline-dark cbtn" type="submit" value="Submit" />
+    </form>
+  </div>
+</div>
+{% endblock %}

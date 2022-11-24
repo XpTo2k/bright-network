@@ -1,0 +1,143 @@
+{% extends "network/layout.html" %} {% block body %} {% for idea in page_obj %}
+<div class="row justify-content-center my-3 mx-1">
+  <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-6 col-xxl-6">
+    <div class="card text-start">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-6">
+            <h5 class="card-title">{{ idea.title }}</h5>
+          </div>
+          <div class="col-6 text-end">
+            <a
+              data-type="user"
+              data-id="{{ idea.author.id }}"
+              class="btn btn-outline-light cbtnl"
+              href="{% url 'user' idea.author %}"
+              type="button"
+            >
+              Author: {{ idea.author }}
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-10">
+            <div class="collapse show" id="edit-{{ idea.id }}">
+              <div
+                style="display: none"
+                id="alert-{{ idea.id }}"
+                class="alert alert-warning"
+                role="alert"
+              >
+                You need to type something to edit!
+              </div>
+              <p data-type="edited-idea-{{ idea.id }}" class="card-text">
+                {{ idea.idea }}
+              </p>
+              <p
+                data-id="{{ idea.id }}"
+                data-type="if-edited-{{ idea.id }}"
+                class="fw-lighter fst-italic"
+              >
+                {% if idea.edited|date:"Y-m-d" != idea.created|date:"Y-m-d" %}
+                Edited: {{ idea.edited }} {% endif %}
+              </p>
+            </div>
+            <div class="collapse" id="edit-{{ idea.id }}">
+              <div>
+                <textarea
+                  name="idea"
+                  cols="40"
+                  rows="10"
+                  class="form-control"
+                  maxlength="2048"
+                  data-id="idea-{{ idea.id }}"
+                  data-type="text-area-{{ idea.id }}"
+                >
+{{ idea.idea }}</textarea
+                >
+              </div>
+            </div>
+          </div>
+          <!-- BRIGHTNESS -->
+          <div
+            data-brightness="{{ idea.id }}"
+            class="col-2 d-flex flex-column justify-content-center align-items-center"
+          ></div>
+          <!-- END BRIGHTNESS -->
+        </div>
+      </div>
+      <div class="card-footer text-muted">
+        <div class="row">
+          <div class="col-1">
+            {% if idea.author == user %}
+            <button
+              class="btn btn-outline-light cbtnl"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#edit-{{ idea.id }}"
+              aria-expanded="false"
+              aria-controls="edit-{{ idea.id }}"
+              data-id="{{ idea.id }}"
+              data-type="text-area-edit"
+            >
+              Edit
+            </button>
+            {% endif %}
+          </div>
+          <div class="col-1">
+            <div class="collapse" id="edit-{{ idea.id }}">
+              <button
+                class="btn btn-outline-light cbtnl"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#edit-{{ idea.id }}"
+                aria-expanded="false"
+                aria-controls="edit-{{ idea.id }}"
+                data-id="{{ idea.id }}"
+                data-type="text-area-save"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+          <div class="col-10 text-end">
+            <p class="my-1 fw-lighter fst-italic">
+              Created: {{ idea.created }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+<div class="row justify-content-center my-3 mx-1">
+  <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-6 col-xxl-6">
+      <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+        {% else %}
+        <li class="page-item disabled"><a class="page-link" href="#">&laquo; First</a></li>
+        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+        {% endif %}
+        {% for page in paginator %}
+        {% if page.number == page_obj.number %}
+        <li class="page-item active" aria-current="{{ page.number }}"><a class="page-link" href="?page={{ page.number }}">{{ page.number }}</a></li>
+        {% else %}
+        <li class="page-item" aria-current="{{ page.number }}"><a class="page-link" href="?page={{ page.number }}">{{ page.number }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a></li>
+        {% else %}
+        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+        <li class="page-item disabled"><a class="page-link" href="#">Last &raquo;</a></li>
+        {% endif %}
+      </ul>
+  </div>
+</div>
+{% endblock %}
